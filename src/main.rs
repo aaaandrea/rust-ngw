@@ -18,13 +18,14 @@ fn main() -> Result<(), Box<std::error::Error>> {
 
     // recv returns the number of bytes it received and wrote into buf
     loop {
+        // we want just the newly received bytes, we can take a len-long slice of buf:
         let len = recv(sock, &mut buf, MsgFlags::empty())?;
         let new_bytes = &buf[..len];
         io::stdout().write(new_bytes);
     }
 
-    // we want just the newly received bytes, we can take a len-long slice of buf:
+    // To help us see this in effect, we'll use netcat. For a quick demo, open up two terminals. In on of them, run
+    // nc -lp 12345
 
-    println!("Hello, world!");
     Ok(())
 }
